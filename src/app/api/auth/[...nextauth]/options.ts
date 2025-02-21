@@ -1,5 +1,5 @@
 import { NextAuthOptions } from "next-auth";
-import { CredentialsProvider } from "next-auth/providers";
+import CredentialsProvider  from "next-auth/providers/credentials";
 
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
@@ -7,13 +7,13 @@ import { UserModel } from "@/model/user";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // @ts-ignore
     CredentialsProvider({
       id: "credentials",
       name: "Credentials",
 
       credentials: {
-        identifier: { label: "Email", type: "text", placeholder: "jsmith" },
+        //TODO: maybe ill need to comeback here since it feels wrong in some sense
+        email: { label: "Email", type: "text"},
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
@@ -41,8 +41,9 @@ export const authOptions: NextAuthOptions = {
             return user;
           }
           throw new Error("Invalid password");
-        } catch (error) {
+        } catch (error) {  
           console.log(error);
+          throw new Error("Invalid email or password");
         }
       },
     }),
@@ -52,7 +53,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token._id = user._id?.toString();
         token.isVerified = user.isVerified;
-        token.isAccepting = user.isAccepting;
+        token.isAcceptingMessage = user.isAcceptingMessage;
         token.username = user.username;
       }
 
@@ -60,14 +61,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        // @ts-ignore
-        session.user._id = token._id;
-        // @ts-ignore
-        session.user.isVerified = token.isVerified;
-        // @ts-ignore
-        session.user.isAccepting = token.isAccepting;
-        // @ts-ignore
-        session.user.username = token.username;
+        session.user._id = token._id as string;
+        session.user.isVerified = token.isVerified as boolean;
+        session.user.isAcceptingMessage = token.isAcceptingMessage as boolean;
+        session.user.username = token.username  as string;
       }
       return session;
     },

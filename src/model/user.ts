@@ -59,10 +59,12 @@ const UserSchema: Schema<User> = new Schema({
     required: [true, "Verify code expiry is required"],
     default: Date.now,
   },
+  // @ts-ignore
   isVerified: {
     type: boolean,
     default: false,
   },
+    // @ts-ignore
   isAcceptingMessage: {
     type: boolean,
     default: false,
