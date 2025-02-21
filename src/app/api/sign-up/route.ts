@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     });
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
     if (existingUserByEmail) {
-      if(existingUserByEmail.isVerified) {
+      if (existingUserByEmail.isVerified) {
         return Response.json(
           {
             success: false,
@@ -39,11 +39,13 @@ export async function POST(req: Request) {
             status: 400,
           },
         );
-      }else{
+      } else {
         const hashedPassword = await bcrypt.hash(password, 10);
         existingUserByEmail.password = hashedPassword;
         existingUserByEmail.verifyCode = verifyCode;
-        existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 60 * 60 * 1000);
+        existingUserByEmail.verifyCodeExpiry = new Date(
+          Date.now() + 60 * 60 * 1000,
+        );
         await existingUserByEmail.save();
       }
     } else {
@@ -57,7 +59,7 @@ export async function POST(req: Request) {
         verifyCode: verifyCode,
         verifyCodeExpiry: expiryDate,
         isVerified: false,
-        isAccepting: true,
+        isAcceptingMessage: true,
         messages: [],
       });
       await user.save();
@@ -83,7 +85,7 @@ export async function POST(req: Request) {
     return Response.json(
       {
         success: true,
-        message: "User registered successfully , Please verify yout email",
+        message: "User registered successfully , Please verify your email",
       },
       {
         status: 200,

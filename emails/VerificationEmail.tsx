@@ -1,70 +1,59 @@
-import * as React from "react";
 import {
   Html,
   Head,
-  Body,
-  Container,
-  Text,
   Font,
+  Preview,
   Heading,
+  Row,
+  Section,
+  Text,
+  Button,
 } from "@react-email/components";
 
-interface EmailTemplateProps {
+interface VerificationEmailProps {
   username: string;
   otp: string;
 }
 
-const EmailTemplate = ({
+export default function EmailTemplate({
   username,
   otp,
-}: {
-  username: string;
-  otp: string;
-}) => {
+}: VerificationEmailProps) {
   return (
-    <Html>
+    <Html lang="en" dir="ltr">
       <Head>
-        <title>Anon-Mess Verification Code</title>
-        {/* @ts-ignore */}
-        <Font fontFamily="Roboto" fontWeight={400} fontStyle="normal" />
-      </Head>
-      <Body
-        style={{
-          backgroundColor: "#f4f4f4",
-          padding: "20px",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
-        <Container
-          style={{
-            backgroundColor: "#ffffff",
-            padding: "20px",
-            borderRadius: "10px",
-            maxWidth: "600px",
-            margin: "auto",
+        <title>Verification Code</title>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: "https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2",
+            format: "woff2",
           }}
-        >
-          <Heading style={{ color: "#333" }}>Your OTP Code</Heading>
-          <Text>Hi {username},</Text>
-          <Text>Your One-Time Password (OTP) for verification is:</Text>
-          <Text
-            style={{
-              fontSize: "24px",
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
-            {otp}
-          </Text>
+          fontWeight={400}
+          fontStyle="normal"
+        />
+      </Head>
+      <Preview>Here&apos;s your verification code: {otp}</Preview>
+      <Section>
+        <Row>
+          <Heading as="h2">Hello {username},</Heading>
+        </Row>
+        <Row>
           <Text>
-            This OTP is valid for a limited time. Do not share it with anyone.
+            Thank you for registering. Please use the following verification
+            code to complete your registration:
           </Text>
-          <Text>Best Regards,</Text>
-          <Text>Anon-Mess Team</Text>
-        </Container>
-      </Body>
+        </Row>
+        <Row>
+          <Text>{otp}</Text>
+        </Row>
+        <Row>
+          <Text>
+            If you did not request this code, please ignore this email.
+          </Text>
+        </Row>
+      </Section>
     </Html>
   );
-};
-
-export default EmailTemplate;
+}
