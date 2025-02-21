@@ -6,7 +6,7 @@ export interface Message extends Document {
   createdAt: Date;
 }
 
-const messageSchema: Schema<Message> = new Schema({
+const MessageSchema: Schema<Message> = new Schema({
   content: {
     type: String,
     required: true,
@@ -19,18 +19,18 @@ const messageSchema: Schema<Message> = new Schema({
 });
 
 export interface User extends Document {
-  usernname: string;
+  username: string;
   email: string;
   password: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
   isVerified?: boolean;
-  isAccepting?: boolean;
+  isAcceptingMessage?: boolean;
   messages: Message[];
 }
 
 const UserSchema: Schema<User> = new Schema({
-  usernname: {
+  username: {
     type: String,
     required: [true, "Username is required"],
     trim: true,
@@ -40,7 +40,10 @@ const UserSchema: Schema<User> = new Schema({
     type: String,
     required: [true, "Email is required"],
     unique: true,
-    match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Invalid email address"],
+    match: [
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email address",
+    ],
   },
   password: {
     type: String,
@@ -48,6 +51,7 @@ const UserSchema: Schema<User> = new Schema({
   },
   verifyCode: {
     type: String,
+    required: [true, "Verify code is required"],
     default: "",
   },
   verifyCodeExpiry: {
@@ -59,17 +63,21 @@ const UserSchema: Schema<User> = new Schema({
     type: boolean,
     default: false,
   },
-  isAccepting: {
+  isAcceptingMessage: {
     type: boolean,
     default: false,
   },
   messages: {
-    type: [messageSchema],
+    type: [MessageSchema],
     default: [],
   },
 });
 
-const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User", UserSchema);
-const MessageModel = (mongoose.models.Message as mongoose.Model<Message>) || mongoose.model<Message>("Message", messageSchema);
+const UserModel =
+  (mongoose.models.User as mongoose.Model<User>) ||
+  mongoose.model<User>("User", UserSchema);
+const MessageModel =
+  (mongoose.models.Message as mongoose.Model<Message>) ||
+  mongoose.model<Message>("Message", MessageSchema);
 
 export { UserModel, MessageModel };
