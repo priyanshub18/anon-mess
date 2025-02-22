@@ -3,31 +3,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import Link from "next/link";
-
+import { AuroraText } from "@/components/magicui/aurora-text";
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 import { toast } from "sonner";
 import { useDebounce } from "@uidotdev/usehooks";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { signUpSchema } from "@/schemas/signUpSchema";
 import { ApiResponse } from "@/types/ApiResponse";
-import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
-import { platform } from "os";
-import { set } from "mongoose";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isValid, setIsValid] = useState(false);
   const debouncedUsername = useDebounce(username, 300);
-  //TODO: Since we are using the toast new component we will directly use it without useToast hook;
   const router = useRouter();
 
   //zod implementation
@@ -48,11 +42,10 @@ const SignUp = () => {
         try {
           console.log(debouncedUsername);
           const res = await axios.get(`/api/check-username-unique?username=${debouncedUsername}`);
-          setIsValid(true);
+
           setUsernameMessage(res.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
-          setIsValid(false);
           setUsernameMessage(axiosError.response?.data.message ?? "Error checking username unique");
         } finally {
           setIsCheckingUsername(false);
@@ -65,13 +58,26 @@ const SignUp = () => {
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
     try {
-      const res = await axios.post("/api/sign-up", data);
-      toast.success("Sign up successful");
-      router.push(`/verify/${username}`);
+      const response = await axios.post<ApiResponse>("/api/sign-up", data);
+      if (response.status === 200) {
+        toast.success("Sign up successful!");
+        const url = `/verify/${username}`;
+        router.push(url);
+      }
+      // toast.success("Sign up successful!");
+      // const url = `/verify/${username}`;
+      // router.push(url);
+
+      setIsSubmitting(false);
     } catch (error) {
+      console.error("Error during sign-up:", error);
+
       const axiosError = error as AxiosError<ApiResponse>;
-      toast.error(axiosError.response?.data.message ?? "Error signing up");
-    } finally {
+      let errorMessage = axiosError.response?.data.message;
+      ("There was a problem with your sign-up. Please try again.");
+
+      toast.error(errorMessage ?? "Error signing up");
+
       setIsSubmitting(false);
     }
   };
@@ -80,9 +86,12 @@ const SignUp = () => {
       <div className='w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
         <div className='text-center'>
           <div className='h-20 w-full'>
-            <TypingAnimation startOnView className=''>
-              Join Anon-Mess
-            </TypingAnimation>
+            <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>
+              <span>Join </span>
+              <AuroraText className=''>
+                <TypingAnimation className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation>{" "}
+              </AuroraText>
+            </h1>
           </div>
           <p className='mb-4 text-gray-900/80'>Sign up to start your anonymous messaging journey. We'll guide you through the process </p>
         </div>
@@ -100,7 +109,7 @@ const SignUp = () => {
                       field.onChange(e);
                       setUsername(e.target.value);
                     }}
-                    placeholder='John_doe'
+                    placeholder='ghostRider_99'
                   />
                   {isCheckingUsername && <Loader2 className='animate-spin' />}
                   {!isCheckingUsername && usernameMessage && <p className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}>{usernameMessage}</p>}
@@ -114,7 +123,7 @@ const SignUp = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <Input {...field} name='email' placeholder='We will send you a verification code' />
+                  <Input {...field} name='email' placeholder='yourname@email.com' />
                   {/* <p className='text-muted text-gray-950 text-sm'>We will send you a verification code</p> */}
                   <FormMessage />
                 </FormItem>
@@ -127,7 +136,7 @@ const SignUp = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type='password' {...field} placeholder='Keep a secured 8 digit password' name='password' />
+                  <Input type='password' {...field} placeholder='123@g-pas' name='password' />
                   <FormMessage />
                 </FormItem>
               )}

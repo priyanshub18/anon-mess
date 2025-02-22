@@ -97,7 +97,7 @@ export async function POST(req: Request) {
     return Response.json(
       {
         success: false,
-        message: "Error registring user",
+        message: "Error registering user",
       },
       {
         status: 500,

@@ -20,7 +20,7 @@ import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { platform } from "os";
 import { set } from "mongoose";
-const SignUp = () => {
+const SignIn = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
@@ -68,7 +68,7 @@ const SignUp = () => {
     try {
       const res = await axios.post("/api/sign-up", data);
       toast.success("Sign up successful");
-      router.push(`/verify/${username}`);
+      router.replace(`/verify/${username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(axiosError.response?.data.message ?? "Error signing up");
@@ -82,10 +82,10 @@ const SignUp = () => {
         <div className='text-center'>
           <div className='h-20 w-full'>
             <TypingAnimation startOnView className=''>
-              Join Anon-Mess
+              Anon-Mess
             </TypingAnimation>
           </div>
-          <p className='mb-4 text-gray-900/80'>Sign up to start your anonymous messaging journey. We'll guide you through the process </p>
+          <p className='mb-4 text-gray-900/80'>Sign in continue your anonymous messaging journey. We'll guide you through the process </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
@@ -101,7 +101,7 @@ const SignUp = () => {
                       field.onChange(e);
                       setUsername(e.target.value);
                     }}
-                    placeholder='John_doe'
+                    placeholder='Type your Username here'
                   />
                   {isCheckingUsername && <Loader2 className='animate-spin' />}
                   {!isCheckingUsername && usernameMessage && <p className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}>{usernameMessage}</p>}
@@ -140,7 +140,7 @@ const SignUp = () => {
                   Please wait
                 </>
               ) : (
-                "Sign Up"
+                "Sign In"
               )}
             </RainbowButton>
           </form>
@@ -148,9 +148,9 @@ const SignUp = () => {
 
         <div className='text-center mt-4'>
           <p>
-            Already a member?{" "}
-            <Link href='/sign-in' className='text-blue-600 hover:text-blue-800'>
-              Sign in
+            Not a member?{" "}
+            <Link href='/sign-up' className='text-blue-600 hover:text-blue-800'>
+              Sign Up
             </Link>
           </p>
         </div>
@@ -159,4 +159,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
