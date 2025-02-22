@@ -1,4 +1,3 @@
-
 import dbConnect from "@/lib/dbConnect";
 import { UserModel } from "@/model/user";
 import bcrypt from "bcryptjs";
@@ -22,7 +21,7 @@ export async function POST(req: Request) {
         },
         {
           status: 400,
-        },
+        }
       );
     }
     const existingUserByEmail = await UserModel.findOne({
@@ -38,21 +37,18 @@ export async function POST(req: Request) {
           },
           {
             status: 400,
-          },
+          }
         );
       } else {
         const hashedPassword = await bcrypt.hash(password, 10);
         existingUserByEmail.password = hashedPassword;
         existingUserByEmail.verifyCode = verifyCode;
-        existingUserByEmail.verifyCodeExpiry = new Date(
-          Date.now() + 60 * 60 * 1000,
-        );
+        existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 60 * 60 * 1000);
         await existingUserByEmail.save();
       }
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getHours() + 1);
+      const expiryDate = new Date(Date.now() + 60 * 60 * 1000);
       const user = new UserModel({
         username,
         email,
@@ -67,11 +63,7 @@ export async function POST(req: Request) {
     }
 
     // TODO:send verification email
-    const emailResponse = await sendVerificationEmail(
-      email,
-      username,
-      verifyCode,
-    );
+    const emailResponse = await sendVerificationEmail(email, username, verifyCode);
     if (!emailResponse.success) {
       return Response.json(
         {
@@ -80,7 +72,7 @@ export async function POST(req: Request) {
         },
         {
           status: 500,
-        },
+        }
       );
     }
     return Response.json(
@@ -90,7 +82,7 @@ export async function POST(req: Request) {
       },
       {
         status: 200,
-      },
+      }
     );
   } catch (error) {
     console.log("Error registring user", error);
@@ -101,7 +93,7 @@ export async function POST(req: Request) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

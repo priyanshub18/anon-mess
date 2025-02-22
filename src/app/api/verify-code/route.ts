@@ -35,12 +35,14 @@ export async function POST(req: Request) {
           message: "User already verified",
         },
         {
-          status: 400,
+          status: 200,
         }
       );
     }
     const isCodeValid = existingUserByUsername.verifyCode === otp;
-    const isCodeNotExpired = new Date() < new Date(existingUserByUsername.verifyCodeExpiry);
+    console.log("HEre is i am checking where the code is valid", isCodeValid);
+    const isCodeNotExpired = new Date() < new Date(existingUserByUsername.verifyCodeExpiry.toString());
+    console.log("HEre is i am checking where the code is not expired", isCodeNotExpired);
     if (isCodeValid && isCodeNotExpired) {
       existingUserByUsername.isVerified = true;
       await existingUserByUsername.save();
