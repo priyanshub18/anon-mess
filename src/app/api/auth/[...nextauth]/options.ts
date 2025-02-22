@@ -1,12 +1,11 @@
 import { NextAuthOptions } from "next-auth";
-import CredentialsProvider  from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import { UserModel } from "@/model/user";
 
-
- const  authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -14,17 +13,14 @@ import { UserModel } from "@/model/user";
 
       credentials: {
         //TODO: maybe ill need to comeback here since it feels wrong in some sense
-        email: { label: "Email", type: "text"},
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
         try {
           const user = await UserModel.findOne({
-            $or: [
-              { email: credentials.identifier },
-              { username: credentials.identifier },
-            ],
+            $or: [{ email: credentials.identifier }, { username: credentials.identifier }],
           });
           if (!user) {
             throw new Error("User not found");
@@ -34,15 +30,12 @@ import { UserModel } from "@/model/user";
             throw new Error("Please verify your email");
           }
 
-          const isPasswordCorrect = await bcrypt.compare(
-            credentials.password,
-            user.password,
-          );
+          const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
           if (isPasswordCorrect) {
             return user;
           }
           throw new Error("Invalid password");
-        } catch (error) {  
+        } catch (error) {
           console.log(error);
           throw new Error("Invalid email or password");
         }
@@ -65,7 +58,7 @@ import { UserModel } from "@/model/user";
         session.user._id = token._id as string;
         session.user.isVerified = token.isVerified as boolean;
         session.user.isAcceptingMessage = token.isAcceptingMessage as boolean;
-        session.user.username = token.username  as string;
+        session.user.username = token.username as string;
       }
       return session;
     },
@@ -79,5 +72,4 @@ import { UserModel } from "@/model/user";
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-
- export default authOptions;
+export default authOptions;

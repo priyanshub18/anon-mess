@@ -136,7 +136,7 @@ const SignUp = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type='password' {...field} placeholder='123@g-pas' name='password' />
+                  <Input type='password' {...field} placeholder='priy@nitj' name='password' />
                   <FormMessage />
                 </FormItem>
               )}

@@ -14,12 +14,14 @@ import { Loader2 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
+import { set } from "mongoose";
 const VerifyAccount = () => {
   const { username } = useParams<{ username: string }>();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const router = useRouter();
   const [value, setValue] = React.useState("");
   const onSubmit = async () => {
+    setIsSubmitting(true);
     try {
       console.log(value);
       const res = await axios.post(`/api/verify-code`, {
@@ -27,11 +29,13 @@ const VerifyAccount = () => {
         otp: value,
       });
       toast.success("Verification successful");
+      setIsSubmitting(false);
       router.replace("/sign-in");
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(axiosError.response?.data.message ?? "Error verifying account");
     }
+    setIsSubmitting(false);
   };
 
   return (
