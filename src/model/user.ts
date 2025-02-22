@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { boolean } from "zod";
+// import { boolean } from "zod";
 
 export interface Message extends Document {
   content: string;
@@ -61,12 +61,12 @@ const UserSchema: Schema<User> = new Schema({
   },
   // @ts-ignore
   isVerified: {
-    type: boolean,
+    type: Boolean,
     default: false,
   },
     // @ts-ignore
   isAcceptingMessage: {
-    type: boolean,
+    type: Boolean,
     default: false,
   },
   messages: {
