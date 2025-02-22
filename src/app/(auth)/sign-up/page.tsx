@@ -27,7 +27,6 @@ const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const debouncedUsername = useDebounce(username, 300);
-
   //TODO: Since we are using the toast new component we will directly use it without useToast hook;
   const router = useRouter();
 
