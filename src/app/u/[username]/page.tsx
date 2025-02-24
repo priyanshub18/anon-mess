@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
-import { Sparkles, Clipboard, ArrowRight, X } from "lucide-react";
+import { Sparkles, Clipboard, ArrowRight, X, Loader2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,7 +15,7 @@ const AnonymousMessagePage = () => {
   const { username } = useParams();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const [suggestions, setSuggestions] = useState<string[]>(["What is your biggest fear?", "Describe your perfect day.", "What motivates you the most?", "Who has inspired you the most?", "If you had one wish, what would it be?"]);
   const [isSuggestionLoading, setIsSuggestionLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
@@ -100,8 +100,13 @@ const AnonymousMessagePage = () => {
           <Card className={`border-none shadow-lg ${theme === "dark" ? "bg-gray-800" : "bg-white"} p-6 mb-8`}>
             <CardContent className='p-6'>
               <Textarea className={`w-full h-40 text-lg p-4 mb-6 rounded-lg ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white focus:border-blue-500" : "bg-white border-gray-300 text-gray-900 focus:border-blue-500"}`} placeholder='Write your anonymous message...' value={message} onChange={(e) => setMessage(e.target.value)} />
-
-              {showSuggestions && (
+              {isSuggestionLoading && (
+                <div className='flex flex-row items-center my-5 justify-center gap-3'>
+                  <Loader2 className='animate-spin h-8 w-8 ' />
+                  <p className='text-md text-gray-500 '>Loading suggestions...</p>
+                </div>
+              )}
+              {!isSuggestionLoading && showSuggestions && suggestions && (
                 <Card className={`w-full mb-6 ${theme === "dark" ? "bg-gray-700 border-gray-600" : "bg-gray-50 border-gray-200"} rounded-lg`}>
                   <CardContent className='p-4'>
                     <div className='flex justify-between items-center mb-4'>
@@ -165,7 +170,6 @@ const AnonymousMessagePage = () => {
               <p className='font-bold text-2xl'>AnonymousMessage</p>
               <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>© {new Date().getFullYear()} All rights reserved</p>
             </div>
-            
           </div>
         </div>
       </footer>
