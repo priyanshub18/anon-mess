@@ -87,7 +87,7 @@ export async function GET(req: Request) {
       return Response.json(
         {
           success: false,
-          message: "User not found",
+          message: "Jola",
         },
         {
           status: 400,

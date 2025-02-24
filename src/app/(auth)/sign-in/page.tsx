@@ -20,8 +20,7 @@ import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { LOADIPHLPAPI } from "dns";
-import { log } from "console";
+
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,24 +39,27 @@ const SignIn = () => {
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     console.log("hello Bro");
     setIsSubmitting(true);
-    const res = await signIn("credentials", {
+    const result = await signIn("credentials", {
       redirect: false,
       identifier: data.identifier,
       password: data.password,
     });
-    if (res?.error) {
-      console.log(res.error);
-      toast.error("Some Error Occured while Signing In");
+    if (result?.error) {
+      if (result.error === "CredentialsSignin") {
+        toast.error("Invalid Email or Password");
+      } else {
+        toast.error("Some Error Occured while signing in");
+      }
+      setIsSubmitting(false);
       return;
-    }
-
-    if (res?.url) {
-      console.log(res.url);
-      router.replace("/dashboard");
     }
     toast.success("Sign In Successful");
     setIsSubmitting(false);
+    if (result?.url) {
+      router.replace("/dashboard");
+    }
   };
+
   return (
     <div className='flex justify-center items-center h-screen bg-gray-100'>
       <div className='w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
@@ -78,7 +80,7 @@ const SignIn = () => {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <Input {...field} name='email' placeholder='yourname@email.com' />
                   {/* <p className='text-muted text-gray-950 text-sm'>We will send you a verification code</p> */}
                   <FormMessage />

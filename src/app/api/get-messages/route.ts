@@ -24,12 +24,24 @@ export async function GET(req: Request) {
   //   const userId = user._id;
   const userId = new mongoose.Types.ObjectId(user._id);
   try {
-    const user = await UserModel.aggregate([{ $match: { _id: userId } }, { $unwind: "$messages" }, { $sort: { "messages.createdAt": -1 } }, { $group: { _id: "$_id", messages: { $push: "$messages" } } }]);
-    if (!user || user.length === 0) {
+    const user = await UserModel.aggregate([{ $match: { _id: userId } }, { $unwind: { path: "$messages", preserveNullAndEmptyArrays: true } }, { $sort: { "messages.createdAt": -1 } }, { $group: { _id: "$_id", messages: { $push: "$messages" } } }]);
+    console.log(user);
+    if (!user) {
       return Response.json(
         {
           success: false,
           message: "User not found",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+    if (user.length === 0) {
+      return Response.json(
+        {
+          success: true,
+          messages: "No Messages found",
         },
         {
           status: 400,
@@ -51,7 +63,7 @@ export async function GET(req: Request) {
     return Response.json(
       {
         success: false,
-        message: "Error fetching messages",
+        message: "Internal server error",
       },
       {
         status: 500,
