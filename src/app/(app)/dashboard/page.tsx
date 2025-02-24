@@ -104,23 +104,23 @@ const DashBoard = () => {
   const profileUrl = typeof window !== "undefined" ? `${window.location.origin}/u/${username}` : "";
 
   return (
-    <div className={`min-h-screen flex flex-col ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+    <div className={`min-h-screen flex flex-col ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"} bg-gray-200`}>
       {/* Header Section with Gradient Background */}
       <section className='relative'>
         {/* Background gradient */}
-        <div className='absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 opacity-90'></div>
+        <div className='absolute inset-0  opacity-90'></div>
 
         {/* Header content */}
         <div className='relative container mx-auto px-6 py-20 text-center z-10'>
-          <h1 className='font-extrabold text-4xl md:text-5xl text-white mb-4 tracking-tight'>
+          <h1 className='font-extrabold text-4xl md:text-6xl  mb-4 tracking-normal'>
             Your <span className='text-yellow-300'>Dashboard</span>
           </h1>
-          <p className='text-lg md:text-xl text-blue-100 max-w-3xl mx-auto'>Manage your messages and profile settings</p>
+          <p className='text-lg md:text-2xl font-bold text-blue-700/50 max-w-3xl mx-auto'>Manage your messages and profile settings</p>
         </div>
       </section>
 
       {/* Main Dashboard Content */}
-      <section className='py-12 px-6'>
+      <section className='py-12 px-6 -mt-10'>
         <div className='container mx-auto max-w-6xl'>
           <Card className={`border-none shadow-lg ${theme === "dark" ? "bg-gray-800" : "bg-white"} p-6 mb-8`}>
             <CardContent className='p-4'>
@@ -197,29 +197,56 @@ const DashBoard = () => {
       </section>
 
       {/* CTA Section */}
-      <section className='relative py-16 px-6 bg-gradient-to-br from-purple-700 to-blue-600 mt-auto'>
-        <div className='container mx-auto max-w-4xl text-center'>
-          <div className='absolute top-0 left-0 bg-red-500 text-white text-xl font-bold px-3 py-1 rounded-br-lg'>Coming Soon !!!</div>
-          <h2 className='text-3xl font-bold text-white mb-4'>Want to Customize Your Profile?</h2>
-          <p className='text-lg text-blue-100 mb-8 max-w-2xl mx-auto'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
-          <Button size='lg' className='bg-white text-blue-700 hover:bg-blue-50 px-8 py-6 rounded-full font-semibold text-lg'>
+      <section className='relative py-16 px-6  mt-auto'>
+        <div className='relative bg-gray-200 rounded-xl overflow-hidden p-10 m-5 shadow-md text-center'>
+          <div className='absolute top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
+
+          <h1 className='text-3xl font-bold text-gray-800 mb-5'>Want to Customize Your Profile?</h1>
+
+          <p className='text-lg text-blue-500 max-w-xl mx-auto mb-8 leading-relaxed'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
+
+          <button className='inline-flex items-center justify-center bg-white text-blue-500 text-lg font-semibold py-3 px-6 rounded-full border-none cursor-pointer shadow-sm transition-all duration-200 hover:shadow-md hover:transform hover:-translate-y-1'>
             Customize Profile
-            <ArrowRight className='ml-2 h-5 w-5' />
-          </Button>
+            <span className='ml-2'>→</span>
+          </button>
         </div>
+        {/* <div
+          className='relative overflow-hidden p-10 m-5 shadow-lg text-center rounded-xl'
+          style={{
+            background: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
+            backgroundSize: "200% 200%",
+            animation: "gradientAnimation 15s ease infinite",
+          }}
+        >
+          {/* CSS Animation for the gradient */}
+        {/* <style jsx>{`
+            @keyframes gradientAnimation {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+          `}</style> */}
+
+        {/* <div className='absolute top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
+
+          <h1 className='text-3xl font-bold text-gray-800 mb-5'>Want to Customize Your Profile?</h1>
+
+          <p className='text-lg text-blue-600 max-w-xl mx-auto mb-8 leading-relaxed font-medium'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
+
+          <button className='inline-flex items-center justify-center bg-white text-blue-500 text-lg font-semibold py-3 px-6 rounded-full cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:transform hover:-translate-y-1 hover:bg-blue-50'>
+            Customize Profile
+            <span className='ml-2'>→</span>
+          </button>
+        </div> */}
       </section>
 
       {/* Footer */}
-      <footer className={`py-8 px-6 ${theme === "dark" ? "bg-gray-900 border-t border-gray-800" : "bg-gray-100 border-t border-gray-200"}`}>
-        <div className='container mx-auto'>
-          <div className='flex flex-col md:flex-row justify-center items-center'>
-            <div className='mb-6 md:mb-0'>
-              <p className='font-bold text-2xl'>AnonymousMessage</p>
-              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>© {new Date().getFullYear()} All rights reserved</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

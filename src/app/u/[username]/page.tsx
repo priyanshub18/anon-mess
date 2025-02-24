@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
@@ -76,26 +76,30 @@ const AnonymousMessagePage = () => {
     setIsSuggestionLoading(false);
   };
 
+  useEffect(() => {
+    getSuggestion();
+  }, []);
+
   return (
     <div className={`min-h-screen flex flex-col ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
       {/* Hero Section */}
       <section className='relative'>
         {/* Background gradient */}
-        <div className='absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 opacity-90'></div>
+        <div className='absolute inset-0  opacity-90'></div>
 
         {/* Hero content */}
         <div className='relative container mx-auto px-6 py-20 flex flex-col items-center text-center z-10'>
-          <h1 className='font-extrabold text-4xl md:text-6xl text-white mb-4 tracking-tight'>
+          <h1 className='font-extrabold text-4xl md:text-6xl text-black mb-4 tracking-tight'>
             Send an <span className='text-yellow-300'>Anonymous Message</span>
           </h1>
-          <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mb-4'>
+          <p className='text-xl md:text-2xl text-blue-700 max-w-3xl mb-4'>
             to <span className='font-semibold'>@{username}</span>
           </p>
         </div>
       </section>
 
       {/* Message Form Section */}
-      <section className='py-12 px-6'>
+      <section className='py-6 px-6 -mt-10  '>
         <div className='container mx-auto max-w-4xl'>
           <Card className={`border-none shadow-lg ${theme === "dark" ? "bg-gray-800" : "bg-white"} p-6 mb-8`}>
             <CardContent className='p-6'>
@@ -149,10 +153,10 @@ const AnonymousMessagePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className='py-16 px-6 bg-gradient-to-br from-purple-700 to-blue-600 mt-auto'>
+      <section className='py-10 px-6  '>
         <div className='container mx-auto max-w-4xl text-center'>
-          <h2 className='text-3xl font-bold text-white mb-4'>Want to Receive Anonymous Messages?</h2>
-          <p className='text-lg text-blue-100 mb-8 max-w-2xl mx-auto'>Create your own anonymous messaging link and start receiving thoughtful messages from anyone around the world.</p>
+          <h2 className='text-3xl font-bold text-black mb-4'>Want to Receive Anonymous Messages?</h2>
+          <p className='text-lg text-gray-400 mb-8 max-w-2xl mx-auto'>Create your own anonymous messaging link and start receiving thoughtful messages from anyone around the world.</p>
           <Link href='/sign-up'>
             <Button size='lg' className='bg-white text-blue-700 hover:bg-blue-50 text-lg px-8 py-6 rounded-full font-semibold'>
               Create Your Own Link
@@ -163,16 +167,6 @@ const AnonymousMessagePage = () => {
       </section>
 
       {/* Footer */}
-      <footer className={`py-8 px-6 ${theme === "dark" ? "bg-gray-900 border-t border-gray-800" : "bg-gray-100 border-t border-gray-200"}`}>
-        <div className='container mx-auto'>
-          <div className='flex flex-col md:flex-row justify-between items-center'>
-            <div className='mb-6 md:mb-0'>
-              <p className='font-bold text-2xl'>AnonymousMessage</p>
-              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>© {new Date().getFullYear()} All rights reserved</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
