@@ -197,8 +197,9 @@ const DashBoard = () => {
       </section>
 
       {/* CTA Section */}
-      <section className='py-16 px-6 bg-gradient-to-br from-purple-700 to-blue-600 mt-auto'>
+      <section className='relative py-16 px-6 bg-gradient-to-br from-purple-700 to-blue-600 mt-auto'>
         <div className='container mx-auto max-w-4xl text-center'>
+          <div className='absolute top-0 left-0 bg-red-500 text-white text-xl font-bold px-3 py-1 rounded-br-lg'>Coming Soon !!!</div>
           <h2 className='text-3xl font-bold text-white mb-4'>Want to Customize Your Profile?</h2>
           <p className='text-lg text-blue-100 mb-8 max-w-2xl mx-auto'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
           <Button size='lg' className='bg-white text-blue-700 hover:bg-blue-50 px-8 py-6 rounded-full font-semibold text-lg'>
