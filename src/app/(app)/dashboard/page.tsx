@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { AuroraText } from "@/components/magicui/aurora-text";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -91,15 +92,25 @@ const DashBoard = () => {
   const profileUrl = `${window.location.origin}/u/${username}`;
 
   return (
-    <div className='my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl'>
+    <div className='my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl '>
+      {/* <AuroraText className='text-center'> */}
       <h1 className='text-4xl font-extrabold text-blue-600 text-center mb-4 sm:text-5xl'>User Dashboard</h1>
+      {/* </AuroraText> */}
 
       {/* Copy Link Section */}
       <div className='mb-4 mt-3'>
         <h2 className='text-lg font-semibold mb-2'>Copy Your Unique Link</h2>
         <div className='flex items-center'>
           <input type='text' value={profileUrl} disabled className='input input-bordered w-full p-2 mr-2 bg-gray-200 rounded-lg' />
-          <Button onClick={() => navigator.clipboard.writeText(profileUrl)}>Copy</Button>
+          <Button
+            className=' hover:text-gray-50 font-bold text-white'
+            onClick={() => {
+              navigator.clipboard.writeText(profileUrl);
+              toast.success("Copied to clipboard");
+            }}
+          >
+            Copy
+          </Button>
         </div>
       </div>
 
@@ -110,14 +121,14 @@ const DashBoard = () => {
         <span className='text-lg font-semibold'>Accept Messages</span>
         <div className='flex items-center gap-2'>
           {isSwitchLoading && <Loader2 className='w-4 h-4 animate-spin' />}
-          <Switch checked={acceptMessages} onCheckedChange={handleToggleSwitch} disabled={isSwitchLoading} />
+          <Switch checked={acceptMessages} onCheckedChange={handleToggleSwitch} disabled={isSwitchLoading} className='bg-blue-500' />
         </div>
       </div>
 
       {/* Refresh Button */}
       <Button className='mt-4' variant='outline' onClick={() => fetchMessages(true)}>
         {isLoading ? <Loader2 className='h-4 w-4 animate-spin' /> : <RefreshCcw className='h-4 w-4' />}
-        Refresh Messages
+        {isLoading ? "Refreshing..." : "Refresh Messages"}
       </Button>
 
       {/* Messages List */}

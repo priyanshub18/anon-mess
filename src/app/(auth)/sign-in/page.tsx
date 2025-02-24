@@ -45,11 +45,7 @@ const SignIn = () => {
       password: data.password,
     });
     if (result?.error) {
-      if (result.error === "CredentialsSignin") {
-        toast.error("Invalid Email or Password");
-      } else {
-        toast.error("Some Error Occured while signing in");
-      }
+      toast.error(result?.error);
       setIsSubmitting(false);
       return;
     }

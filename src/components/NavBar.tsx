@@ -28,7 +28,7 @@ function NavBar() {
             <AlertDialog>
               <AlertDialogTrigger>
                 {" "}
-                <Button>Logout</Button>
+                <Button className=' hover:text-gray-50 font-bold text-white'>Logout</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -44,7 +44,7 @@ function NavBar() {
           </div>
         ) : (
           <Link href='/sign-in' className='text-blue-600 hover:text-blue-800'>
-            <Button className='w-full py-2 px-5'>
+            <Button className='w-full py-2 px-5  hover:text-gray-50 font-bold text-white'>
               <span className='font-extrabold'>Sign In</span>
             </Button>
           </Link>
