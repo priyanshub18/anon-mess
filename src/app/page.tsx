@@ -128,7 +128,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonial Carousel */}
-      <section  id='learn' className={`py-20 px-6 ${theme === "dark" ? "bg-gray-800" : "bg-blue-50"}`}>
+      <section id='learn' className={`py-20 px-6 ${theme === "dark" ? "bg-gray-800" : "bg-blue-50"}`}>
         <div className='container mx-auto'>
           <h2 className='text-3xl md:text-4xl font-bold text-center mb-16'>What Our Users Say</h2>
 
@@ -191,24 +191,10 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className={`py-10 px-6 ${theme === "dark" ? "bg-gray-900" : "bg-gray-100"}`}>
         <div className='container mx-auto'>
-          <div className='flex flex-col md:flex-row justify-between items-center'>
+          <div className='flex flex-col md:flex-row justify-center items-center'>
             <div className='mb-6 md:mb-0'>
               <p className='font-bold text-2xl'>AnonymousMessage</p>
               <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>© {new Date().getFullYear()} All rights reserved</p>
-            </div>
-            <div className='flex gap-8'>
-              <Link href='/privacy' className='hover:underline hover:text-blue-400 animate-in'>
-                Privacy
-              </Link>
-              <Link href='/terms' className='hover:underline hover:text-blue-400 animate-in'>
-                Terms
-              </Link>
-              <Link href='/contact' className='hover:underline hover:text-blue-400 animate-in'>
-                Contact
-              </Link>
-              <Link href='/faq' className='hover:underline hover:text-blue-400 animate-in'>
-                FAQ
-              </Link>
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
           <CardTitle className='text-2xl'>{adviceSynonyms[randomIndex]}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button className='w-fit  hover:text-gray-50 font-bold text-white'>
+              <Button className='w-fit  bg-blue-600 hover:bg-blue-700 text-white'>
                 <X className='h-5 w-5' />
               </Button>
             </AlertDialogTrigger>
