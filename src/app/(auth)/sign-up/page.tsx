@@ -73,7 +73,7 @@ const SignUp = () => {
       console.error("Error during sign-up:", error);
 
       const axiosError = error as AxiosError<ApiResponse>;
-      let errorMessage = axiosError.response?.data.message;
+      const errorMessage = axiosError.response?.data.message;
       ("There was a problem with your sign-up. Please try again.");
 
       toast.error(errorMessage ?? "Error signing up");
