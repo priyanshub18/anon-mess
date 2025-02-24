@@ -109,7 +109,7 @@ const SignUp = () => {
                       field.onChange(e);
                       setUsername(e.target.value);
                     }}
-                    placeholder='ghostRider_99'
+                    placeholder='ghostrider_99'
                   />
                   {isCheckingUsername && <Loader2 className='animate-spin' />}
                   {!isCheckingUsername && usernameMessage && <p className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}>{usernameMessage}</p>}
@@ -141,7 +141,7 @@ const SignUp = () => {
                 </FormItem>
               )}
             />
-            <RainbowButton type='submit' className='w-full' disabled={isSubmitting}>
+            <RainbowButton type='submit' className='w-full font-bold' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />

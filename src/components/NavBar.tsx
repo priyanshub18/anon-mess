@@ -32,7 +32,7 @@ function NavBar() {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className='text-2xl font-bold'>Confirm logout?</AlertDialogTitle>
+                  <AlertDialogTitle className='text-2xl font-medium'>Confirm logout?</AlertDialogTitle>
                   <AlertDialogDescription>Are you sure you want to log out? Any unsaved changes will be lost.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -44,7 +44,7 @@ function NavBar() {
           </div>
         ) : (
           <Link href='/sign-in' className='text-blue-600 hover:text-blue-800'>
-            <Button className='w-full py-2 px-5  hover:text-gray-50 font-bold text-white'>
+            <Button className='w-full py-2 px-5  hover:text-gray-50 font-medium text-white'>
               <span className='font-extrabold'>Sign In</span>
             </Button>
           </Link>

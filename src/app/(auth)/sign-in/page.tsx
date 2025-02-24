@@ -95,7 +95,7 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            <RainbowButton type='submit' className='w-full my-2' disabled={isSubmitting}>
+            <RainbowButton type='submit' className='w-full my-2 font-bold' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />

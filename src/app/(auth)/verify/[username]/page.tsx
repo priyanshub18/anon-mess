@@ -95,7 +95,7 @@ const VerifyAccount = () => {
             </InputOTPGroup>
           </InputOTP>
           <div className='text-center text-md pt-3'>{value === "" ? <>Enter your one-time password.</> : <>You entered: {value}</>}</div>
-          <RainbowButton type='submit' className='w-full mt-5' disabled={isSubmitting} onClick={onSubmit}>
+          <RainbowButton type='submit' className='w-full mt-5 font-extrabold' disabled={isSubmitting} onClick={onSubmit}>
             {isSubmitting ? (
               <>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />
