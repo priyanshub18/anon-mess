@@ -18,12 +18,20 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   const [randomIndex, setRandomIndex] = useState(0);
   const adviceSynonyms = ["Suggestion", "Recommendation", "Guidance", "Tip", "Pointer", "Insight", "Counsel", "Direction", "Hint", "Proposal", "Opinion", "Wisdom", "Instruction", "Strategy", "Perspective", "Solution", "Idea", "Coaching", "Consultation"];
   const handleDeleteConfirm = async () => {
-    const response = await axios.delete<ApiResponse>("/api/delete-message/" + message._id);
-    if (response.status === 200) {
-      toast.success("Message deleted successfully");
-      onMessageDelete(message._id as string);
-    } else {
-      toast.error("Error deleting message");
+    console.log(message._id);
+    try {
+      const response = await axios.post<ApiResponse>("/api/delete-message", {
+        messageId: message._id,
+      });
+      if (response.status === 200) {
+        toast.success("Message deleted successfully");
+        onMessageDelete(message._id as string);
+      } else {
+        toast.error("Error deleting message");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
     }
   };
   function formatReadableDateTime(date) {

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { Types } from "mongoose";
-import authOptions from "../../auth/[...nextauth]/options";
+import authOptions from "../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import { UserModel } from "@/model/user";
 import { User } from "next-auth";
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   try {
     const updatedResult = await UserModel.updateOne(
       { _id: userId },
-      { $pull: { messages: newMessageId } } // Adjust based on DB structure
+      { $pull: { messages: { _id : newMessageId} } } // Adjust based on DB structure
     );
 
     if (updatedResult.modifiedCount === 0) {
