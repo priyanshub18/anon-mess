@@ -5,11 +5,11 @@ import dbConnect from "@/lib/dbConnect";
 import { UserModel } from "@/model/user";
 import { User } from "next-auth";
 import { NextResponse } from "next/server";
-import { Type } from "typescript";
 
-export async function DELETE(request: Request, { params }: { params: { messageId: Types.ObjectId } }) {
+export async function DELETE(request: Request, { params }: { params: { messageId: string } }) {
   const messageId = params.messageId;
   await dbConnect();
+
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
 
@@ -26,7 +26,7 @@ export async function DELETE(request: Request, { params }: { params: { messageId
   }
 
   try {
-    const updatedResult = await UserModel.updateOne({ _id: user._id }, { $pull: { messages: { _id: messageId } } });
+    const updatedResult = await UserModel.updateOne({ _id: user._id }, { $pull: { messages: { _id: new mongoose.Types.ObjectId(messageId) } } });
 
     if (updatedResult.modifiedCount === 0) {
       return NextResponse.json(
