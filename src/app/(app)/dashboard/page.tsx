@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import axios, { AxiosError } from "axios";
-import { Loader2, RefreshCcw, Copy, ArrowRight } from "lucide-react";
+import { Loader2, RefreshCcw, Copy } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -35,7 +35,7 @@ const DashBoard = () => {
       setAcceptMessages(response.data.isAcceptingMessage);
     } catch (error) {
       const axiosError = error as AxiosError;
-      //@ts-ignore
+      // @ts-expect-error
       toast.error(axiosError.response?.data?.message || "Failed to fetch message status.");
     } finally {
       setIsSwitchLoading(false);
@@ -73,6 +73,7 @@ const DashBoard = () => {
       setAcceptMessages(!acceptMessages);
       toast.success(`Message receiving ${!acceptMessages ? "enabled" : "disabled"}`);
     } catch (error) {
+      console.log(error);
       toast.error("Failed to update message status.");
     } finally {
       setIsSwitchLoading(false);

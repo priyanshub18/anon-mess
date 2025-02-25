@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import Link from "next/link";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 import { toast } from "sonner";
@@ -75,7 +74,6 @@ const SignUp = () => {
       const axiosError = error as AxiosError<ApiResponse>;
       const errorMessage = axiosError.response?.data.message;
       ("There was a problem with your sign-up. Please try again.");
-
       toast.error(errorMessage ?? "Error signing up");
 
       setIsSubmitting(false);
@@ -95,6 +93,7 @@ const SignUp = () => {
           </div>
           <p className='mb-4 text-gray-900/80'>Sign up to start your anonymous messaging journey. We'll guide you through the process </p>
         </div>
+        {/* @ ts-expect-error */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <FormField
@@ -153,7 +152,6 @@ const SignUp = () => {
             </RainbowButton>
           </form>
         </Form>
-
         <div className='text-center mt-4'>
           <p>
             Already a member?{" "}

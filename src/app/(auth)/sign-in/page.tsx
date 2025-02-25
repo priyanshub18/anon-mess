@@ -6,10 +6,9 @@ import Link from "next/link";
 
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 import { toast } from "sonner";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
-import { signUpSchema } from "@/schemas/signUpSchema";
 
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -67,7 +66,7 @@ const SignIn = () => {
               </AuroraText>
             </h1>
           </div>
-          <p className='mb-4 text-gray-900/80'>Sign in continue your anonymous messaging journey. We'll guide you through the process </p>
+          <p className='mb-4 text-gray-900/80'>Sign in continue your anonymous messaging journey. We&apos;ll guide you through the process </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
