@@ -40,7 +40,7 @@ const SignIn = () => {
     console.log("hello Bro");
     setIsSubmitting(true);
     const result = await signIn("credentials", {
-      // redirect: false,
+      redirect: false,
       identifier: data.identifier,
       password: data.password,
     });
@@ -52,7 +52,7 @@ const SignIn = () => {
     toast.success("Sign In Successful");
     setIsSubmitting(false);
 
-    router.push("/dashboard");
+    router.push("/");
   };
 
   return (

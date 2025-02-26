@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { ArrowRight, Shield, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "next-themes";
+import { convertToObject } from "typescript";
 
 const testimonials = [
   {
@@ -54,9 +56,12 @@ const features = [
 ];
 
 export default function LandingPage() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
+
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     setMounted(true);
@@ -77,6 +82,12 @@ export default function LandingPage() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    if (session && status === "authenticated") {
+      console.log("From here i am redirecting the user")
+      setIsSignedIn(true);
+    }
+  }, [session, status]);
 
   if (!mounted) return null;
 
@@ -94,7 +105,7 @@ export default function LandingPage() {
           </h1>
           <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mb-10'>Express yourself freely. Connect authentically. Stay anonymous.</p>
           <div className='flex flex-col sm:flex-row gap-4'>
-            <Link href='/sign-up'>
+            <Link href={!isSignedIn ? "/sign-in" : "/dashboard"}>
               <Button size='lg' className='bg-white text-blue-700 hover:bg-blue-50 text-lg px-8 py-6 rounded-full font-semibold'>
                 Get Started
                 <ArrowRight className='ml-2 h-5 w-5' />
