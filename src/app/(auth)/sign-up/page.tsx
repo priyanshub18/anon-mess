@@ -15,6 +15,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
+import { Button } from "@/components/ui/button";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
@@ -84,14 +85,13 @@ const SignUp = () => {
       <div className='w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
         <div className='text-center'>
           <div className='h-20 w-full'>
-            <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>
-              <span>Join </span>
-              <AuroraText className=''>
-                <TypingAnimation className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation>{" "}
-              </AuroraText>
+            <h1 className='text-4xl font-extrabold w-full tracking-tight lg:text-5xl mb-6'>
+              <span>Welcome To</span>
+              {/* <AuroraText className=''> */}
+              <TypingAnimation className='text-4xl  text-blue-700  font-extrabold tracking-normal lg:text-5xl mb-6'>Anon-Mess</TypingAnimation> {/* </AuroraText> */}
             </h1>
           </div>
-          <p className='mb-4 text-gray-900/80'>Sign up to start your anonymous messaging journey. We'll guide you through the process </p>
+          <p className='mb-4 mt-10 text-gray-900/80'>Sign up to start your anonymous messaging journey. We'll guide you through the process </p>
         </div>
         {/* @ ts-expect-error */}
         <Form {...form}>
@@ -140,7 +140,7 @@ const SignUp = () => {
                 </FormItem>
               )}
             />
-            <RainbowButton type='submit' className='w-full font-bold' disabled={isSubmitting}>
+            <Button type='submit' className='w-full font-bold text-lg' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -149,7 +149,7 @@ const SignUp = () => {
               ) : (
                 "Sign Up"
               )}
-            </RainbowButton>
+            </Button>
           </form>
         </Form>
         <div className='text-center mt-4'>

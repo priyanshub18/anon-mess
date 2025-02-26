@@ -19,6 +19,7 @@ import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 import { AuroraText } from "@/components/magicui/aurora-text";
+import { Button } from "@/components/ui/button";
 
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,7 +40,7 @@ const SignIn = () => {
     console.log("hello Bro");
     setIsSubmitting(true);
     const result = await signIn("credentials", {
-      redirect: false,
+      // redirect: false,
       identifier: data.identifier,
       password: data.password,
     });
@@ -60,9 +61,9 @@ const SignIn = () => {
         <div className='text-center'>
           <div className='h-20 w-full'>
             <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>
-              <AuroraText className=''>
-                <TypingAnimation className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation>{" "}
-              </AuroraText>
+              {/* <AuroraText className=''> */}
+                <TypingAnimation className='text-4xl text-blue-700 font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation>{" "}
+              {/* </AuroraText> */}
             </h1>
           </div>
           <p className='mb-4 text-gray-900/80'>Sign in continue your anonymous messaging journey. We&apos;ll guide you through the process </p>
@@ -93,7 +94,7 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            <RainbowButton type='submit' className='w-full my-2 font-bold' disabled={isSubmitting}>
+            <Button type='submit' className='w-full my-2 font-bold text-lg' disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -102,7 +103,7 @@ const SignIn = () => {
               ) : (
                 "Sign In"
               )}
-            </RainbowButton>
+            </Button>
           </form>
         </Form>
 

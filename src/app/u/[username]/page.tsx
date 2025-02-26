@@ -90,9 +90,9 @@ const AnonymousMessagePage = () => {
         {/* Hero content */}
         <div className='relative container mx-auto px-6 py-20 flex flex-col items-center text-center z-10'>
           <h1 className='font-extrabold text-4xl md:text-6xl text-black mb-4 tracking-tight'>
-            Send an <span className='text-yellow-300'>Anonymous Message</span>
+            Send an <span className='text-blue-700'>Anonymous Message</span>
           </h1>
-          <p className='text-xl md:text-2xl text-blue-700 max-w-3xl mb-4'>
+          <p className='text-xl md:text-2xl text-black/50 max-w-3xl mb-4'>
             to <span className='font-semibold'>@{username}</span>
           </p>
         </div>

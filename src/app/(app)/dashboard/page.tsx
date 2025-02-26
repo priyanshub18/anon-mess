@@ -114,9 +114,9 @@ const DashBoard = () => {
         {/* Header content */}
         <div className='relative container mx-auto px-6 py-20 text-center z-10'>
           <h1 className='font-extrabold text-4xl md:text-6xl  mb-4 tracking-normal'>
-            Your <span className='text-yellow-300'>Dashboard</span>
+            Your <span className='text-blue-700'>Dashboard</span>
           </h1>
-          <p className='text-lg md:text-2xl font-bold text-blue-700/50 max-w-3xl mx-auto'>Manage your messages and profile settings</p>
+          <p className='text-lg md:text-2xl font-bold text-black/50 max-w-3xl mx-auto'>Manage your messages and profile settings</p>
         </div>
       </section>
 
