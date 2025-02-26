@@ -52,7 +52,7 @@ const SignIn = () => {
     toast.success("Sign In Successful");
     setIsSubmitting(false);
 
-    router.replace("/dashboard");
+    router.push("/dashboard");
   };
 
   return (
@@ -62,8 +62,7 @@ const SignIn = () => {
           <div className='h-20 w-full'>
             <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>
               {/* <AuroraText className=''> */}
-                <TypingAnimation className='text-4xl text-blue-700 font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation>{" "}
-              {/* </AuroraText> */}
+              <TypingAnimation className='text-4xl text-blue-700 font-extrabold tracking-tight lg:text-5xl mb-6'>Anon-Mess</TypingAnimation> {/* </AuroraText> */}
             </h1>
           </div>
           <p className='mb-4 text-gray-900/80'>Sign in continue your anonymous messaging journey. We&apos;ll guide you through the process </p>
