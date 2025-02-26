@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
@@ -8,14 +8,18 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import Image from "next/image";
+import { useDebounce } from "@uidotdev/usehooks";
 function NavBar() {
   const { data: session } = useSession();
   const user: User = session?.user as User;
+  useEffect(() => {
+    console.log("session", session);
+  }, [session]);
 
   return (
     <nav className='bg-gray-50 w-full h-full rounded-b-lg shadow-lg  '>
       <div className='flex flex-row items-center justify-between md:px-20 py-3 w-full h-full px-8 sticky'>
-        <a href='' className='flex flex-row items-center gap-1'>
+        <a href='/' className='flex flex-row items-center gap-1'>
           <Image src='/logo.svg' alt='logo' width={50} height={50} className='h-10 w-10' />
           <span className='text-md font-extrabold sm:text-2xl'>Anon-Mess</span>
         </a>

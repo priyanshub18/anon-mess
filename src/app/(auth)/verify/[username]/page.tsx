@@ -15,6 +15,7 @@ import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { set } from "mongoose";
+import { Button } from "@/components/ui/button";
 const VerifyAccount = () => {
   const { username } = useParams<{ username: string }>();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -42,9 +43,9 @@ const VerifyAccount = () => {
     <div className='flex justify-center items-center h-screen bg-gray-100'>
       <div className='w-full max-w-lg p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
         <div className='text-center'>
-          <AuroraText>
-            <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl mb-6'>Verify your Account</h1>
-          </AuroraText>
+          {/* <AuroraText> */}
+          <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl  text-blue-700 mb-6'>Verify your Account</h1>
+          {/* </AuroraText> */}
           <p>Enter the verification code sent to your email address to verify your account.</p>
         </div>
         <div className='flex flex-col items-center'>
@@ -95,7 +96,7 @@ const VerifyAccount = () => {
             </InputOTPGroup>
           </InputOTP>
           <div className='text-center text-md pt-3'>{value === "" ? <>Enter your one-time password.</> : <>You entered: {value}</>}</div>
-          <RainbowButton type='submit' className='w-full mt-5 font-extrabold' disabled={isSubmitting} onClick={onSubmit}>
+          <Button type='submit' className='w-full mt-5 font-extrabold' disabled={isSubmitting} onClick={onSubmit}>
             {isSubmitting ? (
               <>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -104,7 +105,7 @@ const VerifyAccount = () => {
             ) : (
               "Sign Up"
             )}
-          </RainbowButton>
+          </Button>
         </div>
       </div>
     </div>

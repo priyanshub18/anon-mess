@@ -105,7 +105,7 @@ export default function LandingPage() {
           </h1>
           <p className='text-xl md:text-2xl text-blue-100 max-w-3xl mb-10'>Express yourself freely. Connect authentically. Stay anonymous.</p>
           <div className='flex flex-col sm:flex-row gap-4'>
-            <Link href={!isSignedIn ? "/sign-in" : "/dashboard"}>
+            <Link href={!isSignedIn ? "/sign-up" : "/dashboard"}>
               <Button size='lg' className='bg-white text-blue-700 hover:bg-blue-50 text-lg px-8 py-6 rounded-full font-semibold'>
                 Get Started
                 <ArrowRight className='ml-2 h-5 w-5' />

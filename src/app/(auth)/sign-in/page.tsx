@@ -52,7 +52,7 @@ const SignIn = () => {
     toast.success("Sign In Successful");
     setIsSubmitting(false);
 
-    router.push("/");
+    router.push("/dashboard");
   };
 
   return (

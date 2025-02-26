@@ -135,7 +135,7 @@ const DashBoard = () => {
                     navigator.clipboard.writeText(profileUrl);
                     toast.success("Copied to clipboard");
                   }}
-                  className='bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 py-2 font-semibold whitespace-nowrap'
+                  className='bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-4 font-semibold whitespace-nowrap'
                 >
                   <Copy className='h-4 w-4 mr-2' />
                   Copy Link
