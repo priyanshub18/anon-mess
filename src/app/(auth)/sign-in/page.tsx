@@ -50,9 +50,8 @@ const SignIn = () => {
     }
     toast.success("Sign In Successful");
     setIsSubmitting(false);
-    if (result?.url) {
-      router.replace("/dashboard");
-    }
+
+    router.replace("/dashboard");
   };
 
   return (
