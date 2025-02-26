@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useTheme } from "next-themes";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 
 const DashBoard = () => {
   const [messages, setMessages] = useState([]);
@@ -159,8 +159,8 @@ const DashBoard = () => {
 
               <Separator className={`my-6 ${theme === "dark" ? "bg-gray-700" : "bg-gray-200"}`} />
 
-              <div className='flex justify-between items-center mb-8'>
-                <h2 className='text-2xl font-bold'>Your Messages</h2>
+              <div className='flex flex-col justify-between items-center mb-8 md:flex-row gap-4'>
+                <h2 className='md:text-2xl font-bold text-lg'>Your Messages</h2>
                 <Button onClick={() => fetchMessages(true)} variant='outline' className={`rounded-full ${theme === "dark" ? "border-gray-600 text-gray-300 hover:bg-gray-700" : "border-gray-300 hover:bg-gray-100"}`}>
                   {isLoading ? <Loader2 className='h-4 w-4 animate-spin mr-2' /> : <RefreshCcw className='h-4 w-4 mr-2' />}
                   {isLoading ? "Refreshing..." : "Refresh Messages"}
@@ -198,20 +198,22 @@ const DashBoard = () => {
       </section>
 
       {/* CTA Section */}
-      <section className='relative py-16 px-6  mt-auto'>
-        <div className='relative bg-gray-200 rounded-xl overflow-hidden p-10 m-5 shadow-md text-center'>
-          <div className='absolute top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
-
-          <h1 className='text-3xl font-bold text-gray-800 mb-5'>Want to Customize Your Profile?</h1>
-
-          <p className='text-lg text-blue-500 max-w-xl mx-auto mb-8 leading-relaxed'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
-
-          <button className='inline-flex items-center justify-center bg-white text-blue-500 text-lg font-semibold py-3 px-6 rounded-full border-none cursor-pointer shadow-sm transition-all duration-200 hover:shadow-md hover:transform hover:-translate-y-1'>
-            Customize Profile
-            <span className='ml-2'>→</span>
-          </button>
-        </div>
-        {/* <div
+      <section className='relative py-16 px-6 mt-auto border-none shadow-md bg-gray-50 text-center'>
+        <Card className='relative rounded-xl overflow-hidden p-10 m-5 shadow-md text-center'>
+          <CardHeader>
+            <div className='absolute hidden md:block top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
+            <CardTitle className='text-3xl font-bold text-gray-800 mb-5'>Want to Customize Your Profile?</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className='text-lg text-blue-500 max-w-xl mx-auto mb-8 leading-relaxed'>Personalize your profile page to make it uniquely yours and attract more anonymous messages.</p>
+            <button className='inline-flex items-center justify-center bg-blue-700 text-white text-lg font-semibold py-3 px-6 rounded-full border-none cursor-pointer shadow-sm transition-all duration-200 hover:shadow-md hover:transform hover:-translate-y-1'>
+              Customize Profile
+              <span className='ml-2'>→</span>
+            </button>
+          </CardContent>
+        </Card>
+      </section>
+      {/* <div
           className='relative overflow-hidden p-10 m-5 shadow-lg text-center rounded-xl'
           style={{
             background: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
@@ -220,7 +222,7 @@ const DashBoard = () => {
           }}
         >
           {/* CSS Animation for the gradient */}
-        {/* <style jsx>{`
+      {/* <style jsx>{`
             @keyframes gradientAnimation {
               0% {
                 background-position: 0% 50%;
@@ -234,7 +236,7 @@ const DashBoard = () => {
             }
           `}</style> */}
 
-        {/* <div className='absolute top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
+      {/* <div className='absolute top-5 left-5 bg-red-500 text-white px-4 py-2 font-bold text-base rounded-md shadow-sm'>Coming Soon !!!</div>
 
           <h1 className='text-3xl font-bold text-gray-800 mb-5'>Want to Customize Your Profile?</h1>
 
@@ -245,7 +247,6 @@ const DashBoard = () => {
             <span className='ml-2'>→</span>
           </button>
         </div> */}
-      </section>
 
       {/* Footer */}
     </div>
