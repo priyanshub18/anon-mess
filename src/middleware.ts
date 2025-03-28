@@ -23,5 +23,5 @@ export async function middleware(request: NextRequest) {
     }
 
     return NextResponse.next();
-  }, 2000);
+  }, 1000);
 }

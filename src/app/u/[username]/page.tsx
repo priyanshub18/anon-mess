@@ -48,8 +48,22 @@ const AnonymousMessagePage = () => {
       toast.error("Message cannot be empty");
       return;
     }
-
     setIsLoading(true);
+    try{
+
+      const response = await axios.post("/api/check-hate-speech", { message });
+      console.log(response);
+      if(response.data.isHateSpeech){
+        toast.error("Message cannot be sent as it contains hate speech");
+        return;
+      }
+    }catch(e){
+      console.log(e); 
+      toast.error("Something went wrong");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       await axios.post("/api/send-message", { username, content: message });
       toast.success("Message sent anonymously!");

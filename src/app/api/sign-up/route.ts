@@ -41,6 +41,7 @@ export async function POST(req: Request) {
         );
       } else {
         const hashedPassword = await bcrypt.hash(password, 10);
+        existingUserByEmail.username = username;
         existingUserByEmail.password = hashedPassword;
         existingUserByEmail.verifyCode = verifyCode;
         existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 60 * 60 * 1000);
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
         messages: [],
       });
       await user.save();
+      console.log("User is saved into the dartabase")
     }
 
     // TODO:send verification email
